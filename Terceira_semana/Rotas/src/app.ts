@@ -1,6 +1,7 @@
 import express  from "express";
 import cors from "cors";
 import routes from "./routers";
+import connection from "./config/database";
 
 const app = express();
 
@@ -9,6 +10,10 @@ app.use(express.json());
 app.use(routes);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Aplicação online na porta: ${PORT}`);
-});
+
+connection.then(() => {
+    console.log("Banco de dados Conectado");
+    app.listen(PORT, () => {
+        console.log(`Aplicação online na porta: ${PORT}`);
+    });
+}).catch((err) => console.log(err));

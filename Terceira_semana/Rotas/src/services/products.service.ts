@@ -1,7 +1,9 @@
+/* import { Product } from "../models/product.model"; */
+import ProductRepository from "../repository/product.repository";
 import { Product } from "../models/product.model";
 
 class ProductsService {
-  products: Array<Product> = [
+ /*  products: Array<Product> = [
     {
       id: 1,
       description: "Notebook S51",
@@ -40,34 +42,36 @@ class ProductsService {
       price: 3350,
       quantity: 2,
     },
-  ];
+  ]; */
 
   getAll() {
-    return this.products;
+    return ProductRepository.getlAll();
   }
 
-  create(product: Product) {
-    this.products.push(product);
+  create(product: typeof Product) {
+    return ProductRepository.create(product);
   }
 
   remove(id: string) {
-    const productIndex = this.products.findIndex(
+    /* const productIndex = this.products.findIndex(
       (product) => product.id.toString() === id
     );
     if (productIndex === -1) {
       throw new Error("Produto não encontrado! ");
     }
-    this.products.splice(productIndex, 1);
+    this.products.splice(productIndex, 1); */
+    return ProductRepository.remove(id);
   }
 
-  update(id: string, product: Product) {
-    const productIndex = this.products.findIndex(
+  update(id: string, product: Partial<typeof Product>) {
+    /* const productIndex = this.products.findIndex(
       (product) => product.id === +id
     );
     if (productIndex === -1) {
       throw new Error("Produto não encontrado! ");
     }
-    this.products[productIndex] = product;
+    this.products[productIndex] = product; */
+    return ProductRepository.update(id, product);
   }
 }
 
