@@ -1,12 +1,3 @@
-/* export interface Product {
-  id: number;
-  description: string;
-  img: string;
-  price: number;
-  quantity: number;
-}
- */
-
 import { Schema } from "mongoose";
 import mongoose from "mongoose";
 
