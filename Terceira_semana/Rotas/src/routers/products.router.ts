@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import productsService from "../services/products.service";
+import { authorizationMiddleware } from "../middlewares/authorization.middlewares";
 
 const router = Router();
 
@@ -10,13 +11,13 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 //Adciona um item no array
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", authorizationMiddleware, async (req: Request, res: Response) => {
   await productsService.create(req.body);
   res.status(201).send({ message: "Produto registrado com sucesso!" });
 });
 
 //Deleta um item por id
-router.delete("/remove/:id", async (req: Request, res: Response) => {
+router.delete("/remove/:id", authorizationMiddleware, async (req: Request, res: Response) => {
   try {
     await productsService.remove(req.params.id);
     res.status(200).send({ message: "Produto removido com sucesso!" });
@@ -26,7 +27,7 @@ router.delete("/remove/:id", async (req: Request, res: Response) => {
 });
 
 //Altera um produto
-router.put("/:id", async (req: Request, res: Response) => {
+router.put("/:id", authorizationMiddleware, async (req: Request, res: Response) => {
   try {
     await productsService.update(req.params.id, req.body);
     res.status(200).send({ message: "Produto alterado com sucesso!" });
